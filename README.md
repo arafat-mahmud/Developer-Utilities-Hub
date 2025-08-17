@@ -7,8 +7,8 @@
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*
 
-[![PyPI version](https://badge.fury.io/py/devhub-cli.svg)](https://badge.fury.io/py/devhub-cli)
-[![Downloads](https://pepy.tech/badge/devhub-cli)](https://pepy.tech/project/devhub-cli)
+[![PyPI version](https://badge.fury.io/py/devhub-tools.svg)](https://badge.fury.io/py/devhub-tools)
+[![Downloads](https://pepy.tech/badge/devhub-tools)](https://pepy.tech/project/devhub-tools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
@@ -61,7 +61,7 @@ devhub monitor system --interval 5
 
 ### 🔥 Quick Install
 ```bash
-pip install devhub-cli
+pip install devhub-tools
 ```
 
 ### 🚀 Alternative Installation Methods
@@ -151,7 +151,7 @@ docker run --rm -v $(pwd):/workspace devhub/cli format --lang python
 
 ```bash
 # Install DevHub
-pip install devhub-cli
+pip install devhub-tools
 
 # Get help
 devhub --help

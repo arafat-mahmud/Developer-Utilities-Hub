@@ -7,11 +7,10 @@
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*
 
-[![PyPI version](https://badge.fury.io/py/devhub-cli.svg)](https://badge.fury.io/py/devhub-cli)
-[![Downloads](https://pepy.tech/badge/devhub-cli)](https://pepy.tech/project/devhub-cli)
+[![Development Status](https://img.shields.io/badge/status-in%20development-yellow)](https://github.com/arafat-mahmud/Developer-Utilities-Hub)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![CI/CD](https://github.com/username/devhub/workflows/CI/badge.svg)](https://github.com/username/devhub/actions)
+[![Local Install](https://img.shields.io/badge/install-local%20only-orange)](https://github.com/arafat-mahmud/Developer-Utilities-Hub/blob/main/INSTALL.md)
 
 [🎬 Demo](#demo) • [📦 Installation](#installation) • [🔧 Features](#features) • [🤝 Contributing](#contributing)
 
@@ -47,22 +46,40 @@ devhub monitor system --interval 5
 
 ## 📦 Installation
 
-### 🔥 Quick Install (Recommended)
+> **⚠️ Note**: DevHub is currently in development and not yet published to PyPI. Please use the local installation method below.
+
+### 🛠️ Local Installation (Recommended)
 ```bash
+# Clone the repository
+git clone https://github.com/arafat-mahmud/Developer-Utilities-Hub.git
+cd Developer-Utilities-Hub
+
+# Create and activate virtual environment
+python3 -m venv devhub-env
+source devhub-env/bin/activate  # On macOS/Linux
+# or
+devhub-env\Scripts\activate     # On Windows
+
+# Install in development mode
+pip install -e .
+
+# Verify installation
+devhub --help
+```
+
+### 🔥 Quick Install (Coming Soon)
+```bash
+# Will be available when published to PyPI
 pip install devhub-cli
 ```
 
-### 🛠️ From Source
+### 🐳 Docker (Coming Soon)
 ```bash
-git clone https://github.com/username/devhub.git
-cd devhub
-pip install -e .
-```
-
-### 🐳 Docker
-```bash
+# Will be available when Docker image is published
 docker run --rm -v $(pwd):/workspace devhub/cli format --lang python
 ```
+
+📋 **For detailed installation instructions, see [INSTALL.md](INSTALL.md)**
 
 ## 🔧 Features
 
@@ -99,8 +116,12 @@ docker run --rm -v $(pwd):/workspace devhub/cli format --lang python
 ## 🚀 Quick Start
 
 ```bash
-# Install DevHub
-pip install devhub-cli
+# Clone and install DevHub locally
+git clone https://github.com/arafat-mahmud/Developer-Utilities-Hub.git
+cd Developer-Utilities-Hub
+python3 -m venv devhub-env
+source devhub-env/bin/activate
+pip install -e .
 
 # Get help
 devhub --help
@@ -114,8 +135,8 @@ devhub api test --url https://httpbin.org/get
 # Generate a secure password
 devhub gen password --length 20
 
-# Convert JSON to CSV
-devhub convert json2csv data.json
+# Check available plugins
+devhub plugin list
 ```
 
 ## 📖 Documentation

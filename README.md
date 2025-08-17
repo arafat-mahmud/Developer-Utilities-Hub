@@ -217,12 +217,6 @@ Please open an issue with:
 - Local-first approach
 - Security-focused utilities
 
-## 📈 Stats
-
-- 🌟 **1000+** GitHub Stars
-- 📦 **50K+** Downloads
-- 🤝 **25+** Contributors
-- 🚀 **Active Development**
 
 ## 📄 License
 

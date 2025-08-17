@@ -13,7 +13,7 @@ maintainers = [
     {name = "DevHub Team", email = "hello@devhub.dev"}
 ]
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 keywords = [
     "cli", "developer-tools", "utilities", "devops", "automation",
     "formatting", "git", "api-testing", "security", "data-conversion"
@@ -22,7 +22,6 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",

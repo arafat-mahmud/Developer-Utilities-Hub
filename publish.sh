@@ -1,30 +1,35 @@
 #!/bin/bash
 
 # DevHub PyPI Publishing Script
-# Use this script to publish DevHub to PyPI
+# This script publishes DevHub to PyPI so users can install with: pip install devhub-cli
 
 set -e
 
 echo "🚀 DevHub PyPI Publishing Script"
 echo "==============================="
 echo ""
+echo "This will publish DevHub to PyPI so users can install with:"
+echo "pip install devhub-cli"
+echo ""
 
 # Check if we're in a virtual environment
 if [[ "$VIRTUAL_ENV" == "" ]]; then
     echo "❌ Error: Please activate the virtual environment first:"
+    echo "cd Developer-Utilities-Hub"
     echo "source devhub-env/bin/activate"
+    echo "Then run: ./publish.sh"
     exit 1
 fi
 
 # Check if build tools are installed
-if ! command -v twine &> /dev/null; then
-    echo "📦 Installing build tools..."
-    pip install build twine
-fi
+echo "📦 Installing/upgrading build tools..."
+pip install --upgrade build twine setuptools wheel
 
+echo ""
 echo "🧹 Cleaning previous builds..."
 rm -rf dist/ build/ src/*.egg-info/
 
+echo ""
 echo "🏗️ Building the package..."
 python -m build
 
@@ -33,67 +38,57 @@ echo "📦 Built packages:"
 ls -la dist/
 
 echo ""
-echo "🧪 Testing the built package..."
+echo "🧪 Testing the built package locally..."
 # Test if the wheel can be installed
-pip install dist/devhub_cli-*.whl --force-reinstall
+pip install dist/devhub_cli-*.whl --force-reinstall --quiet
 
-echo "✅ Package test successful!"
-echo ""
-
-echo "📋 Publishing Options:"
-echo "1. Test on TestPyPI (recommended first)"
-echo "2. Publish to PyPI (production)"
-echo "3. Exit"
-echo ""
-
-read -p "Choose an option (1-3): " choice
-
-case $choice in
-    1)
-        echo ""
-        echo "🧪 Publishing to TestPyPI..."
-        echo "You'll need your TestPyPI API token"
-        echo "Get it from: https://test.pypi.org/manage/account/token/"
-        echo ""
-        python -m twine upload --repository testpypi dist/*
-        echo ""
-        echo "✅ Published to TestPyPI!"
-        echo ""
-        echo "🔍 Test installation:"
-        echo "pip install --index-url https://test.pypi.org/simple/ devhub-cli"
-        ;;
-    2)
-        echo ""
-        echo "🚀 Publishing to PyPI..."
-        echo "⚠️  WARNING: This will publish to the real PyPI!"
-        echo "You'll need your PyPI API token"
-        echo "Get it from: https://pypi.org/manage/account/token/"
-        echo ""
-        read -p "Are you sure you want to publish to PyPI? (y/N): " confirm
-        if [[ $confirm =~ ^[Yy]$ ]]; then
-            python -m twine upload dist/*
-            echo ""
-            echo "🎉 Published to PyPI!"
-            echo ""
-            echo "✅ Users can now install with:"
-            echo "pip install devhub-cli"
-        else
-            echo "❌ Publishing cancelled"
-        fi
-        ;;
-    3)
-        echo "👋 Exiting..."
-        exit 0
-        ;;
-    *)
-        echo "❌ Invalid option"
-        exit 1
-        ;;
-esac
+# Test if CLI works
+echo "✅ Testing CLI functionality..."
+if devhub --version > /dev/null 2>&1; then
+    echo "✅ Package test successful!"
+else
+    echo "❌ Package test failed!"
+    exit 1
+fi
 
 echo ""
-echo "📝 Next Steps:"
-echo "1. Update README.md with PyPI installation instructions"
-echo "2. Create a GitHub release"
-echo "3. Update version number for next release"
+echo "🎯 Ready to publish to PyPI!"
+echo ""
+echo "📋 You need:"
+echo "1. PyPI account: https://pypi.org/account/register/"
+echo "2. API token: https://pypi.org/manage/account/token/"
+echo ""
+
+read -p "Do you have a PyPI account and API token? (y/N): " ready
+if [[ ! $ready =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "📝 Please complete these steps first:"
+    echo "1. Create PyPI account: https://pypi.org/account/register/"
+    echo "2. Verify your email"
+    echo "3. Generate API token: https://pypi.org/manage/account/token/"
+    echo "4. Run this script again"
+    exit 0
+fi
+
+echo ""
+echo "🚀 Publishing to PyPI..."
+echo "When prompted, use:"
+echo "Username: __token__"
+echo "Password: your-api-token"
+echo ""
+
+# Upload to PyPI
+python -m twine upload dist/*
+
+echo ""
+echo "🎉 SUCCESS! DevHub has been published to PyPI!"
+echo ""
+echo "✅ Users can now install DevHub globally with:"
+echo "pip install devhub-cli"
+echo ""
+echo "🧪 Test the published package:"
+echo "pip install devhub-cli --upgrade"
+echo "devhub --help"
+echo ""
+echo "📖 Update your README.md to include the PyPI installation method!"
 echo ""

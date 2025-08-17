@@ -88,12 +88,12 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/username/devhub"
-Documentation = "https://devhub-cli.readthedocs.io/"
-Repository = "https://github.com/username/devhub.git"
-"Bug Tracker" = "https://github.com/username/devhub/issues"
-Changelog = "https://github.com/username/devhub/blob/main/CHANGELOG.md"
-Discussions = "https://github.com/username/devhub/discussions"
+Homepage = "https://github.com/arafat-mahmud/Developer-Utilities-Hub"
+Documentation = "https://github.com/arafat-mahmud/Developer-Utilities-Hub/blob/main/README.md"
+Repository = "https://github.com/arafat-mahmud/Developer-Utilities-Hub.git"
+"Bug Tracker" = "https://github.com/arafat-mahmud/Developer-Utilities-Hub/issues"
+Changelog = "https://github.com/arafat-mahmud/Developer-Utilities-Hub/blob/main/CHANGELOG.md"
+Discussions = "https://github.com/arafat-mahmud/Developer-Utilities-Hub/discussions"
 
 [project.scripts]
 devhub = "devhub.cli:main"

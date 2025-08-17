@@ -7,10 +7,10 @@
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*
 
-[![Development Status](https://img.shields.io/badge/status-in%20development-yellow)](https://github.com/arafat-mahmud/Developer-Utilities-Hub)
+[![PyPI version](https://badge.fury.io/py/devhub-cli.svg)](https://badge.fury.io/py/devhub-cli)
+[![Downloads](https://pepy.tech/badge/devhub-cli)](https://pepy.tech/project/devhub-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Local Install](https://img.shields.io/badge/install-local%20only-orange)](https://github.com/arafat-mahmud/Developer-Utilities-Hub/blob/main/INSTALL.md)
 
 [🎬 Demo](#demo) • [📦 Installation](#installation) • [🔧 Features](#features) • [🤝 Contributing](#contributing)
 
@@ -19,6 +19,19 @@
 ## 🎯 What is DevHub?
 
 DevHub is a powerful, extensible CLI tool that combines the most useful developer utilities into one unified interface. Stop juggling multiple tools - DevHub has everything you need for your daily development workflow.
+
+## 🎬 Why DevHub CLI?
+
+- ✅ **Free tier**: 60 requests/min and 1,000 requests/day with personal account
+- ⚡ **Powerful DevHub Pro**: Access to advanced features and higher limits
+- 🔧 **Built-in tools**: Code formatting, API testing, file operations, shell commands, web fetching
+- 🧩 **Extensible**: Plugin architecture for custom integrations
+- 💻 **Terminal-first**: Designed for developers who live in the command line
+- 🔒 **Open source**: Apache 2.0 licensed
+
+## 📦 Installation
+
+DevHub CLI is an open-source developer agent that brings the power of multiple development tools directly into your terminal. It provides lightweight access to essential developer utilities, giving you the most direct path from your prompt to productivity.
 
 ## 🎬 Demo
 
@@ -46,9 +59,30 @@ devhub monitor system --interval 5
 
 ## 📦 Installation
 
-> **⚠️ Note**: DevHub is currently in development and not yet published to PyPI. Please use the local installation method below.
+### 🔥 Quick Install
+```bash
+pip install devhub-cli
+```
 
-### 🛠️ Local Installation (Recommended)
+### 🚀 Alternative Installation Methods
+
+#### Install globally with npm (Node.js)
+```bash
+npm install -g @devhub/cli
+```
+
+#### Install globally with Homebrew (macOS/Linux)
+```bash
+brew install devhub-cli
+```
+
+#### Run instantly with npx
+```bash
+# Using npx (no installation required)
+npx devhub-cli --help
+```
+
+### 🛠️ From Source (Development)
 ```bash
 # Clone the repository
 git clone https://github.com/arafat-mahmud/Developer-Utilities-Hub.git
@@ -67,19 +101,19 @@ pip install -e .
 devhub --help
 ```
 
-### 🔥 Quick Install (Coming Soon)
+### 🐳 Docker
 ```bash
-# Will be available when published to PyPI
-pip install devhub-cli
-```
-
-### 🐳 Docker (Coming Soon)
-```bash
-# Will be available when Docker image is published
+# Run with Docker
 docker run --rm -v $(pwd):/workspace devhub/cli format --lang python
 ```
 
-📋 **For detailed installation instructions, see [INSTALL.md](INSTALL.md)**
+### 📋 System Requirements
+
+- **Python**: 3.8 or higher
+- **Operating System**: macOS, Linux, Windows
+- **Node.js**: 20 or higher (for npm installation)
+- **Memory**: 512MB RAM minimum
+- **Storage**: 100MB available space
 
 ## 🔧 Features
 
@@ -116,18 +150,14 @@ docker run --rm -v $(pwd):/workspace devhub/cli format --lang python
 ## 🚀 Quick Start
 
 ```bash
-# Clone and install DevHub locally
-git clone https://github.com/arafat-mahmud/Developer-Utilities-Hub.git
-cd Developer-Utilities-Hub
-python3 -m venv devhub-env
-source devhub-env/bin/activate
-pip install -e .
+# Install DevHub
+pip install devhub-cli
 
 # Get help
 devhub --help
 
 # Format a Python file
-devhub format --lang python main.py
+devhub format code --lang python main.py
 
 # Test an API endpoint
 devhub api test --url https://httpbin.org/get
@@ -137,6 +167,49 @@ devhub gen password --length 20
 
 # Check available plugins
 devhub plugin list
+```
+
+## 🎯 Getting Started
+
+### Basic Usage
+
+**Start in current directory**
+```bash
+devhub
+```
+
+**Include multiple directories**
+```bash
+devhub --include-directories ./lib,./docs
+```
+
+**Use specific model**
+```bash
+devhub -m gemini-2.5-flash
+```
+
+**Non-interactive mode for scripts**
+```bash
+devhub -p "Explain the architecture of this codebase"
+```
+
+### Quick Examples
+
+**Start a new project**
+```bash
+cd new-project/
+devhub
+> Write me a Discord bot that answers questions using a FAQ.md file I will provide
+```
+
+**Analyze existing code**
+```bash
+#### Analyze existing code
+```bash
+git clone https://github.com/google-gemini/gemini-cli
+cd gemini-cli
+devhub
+> Give me a summary of all of the changes that went in yesterday
 ```
 
 ## 📖 Documentation

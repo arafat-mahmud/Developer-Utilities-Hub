@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0,<70.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,7 +13,7 @@ maintainers = [
     {name = "DevHub Team", email = "hello@devhub.dev"}
 ]
 readme = "README.md"
-license = "MIT"
+license = {text = "MIT"}
 keywords = [
     "cli", "developer-tools", "utilities", "devops", "automation",
     "formatting", "git", "api-testing", "security", "data-conversion"

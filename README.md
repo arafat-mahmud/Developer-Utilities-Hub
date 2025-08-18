@@ -31,7 +31,48 @@ DevHub is a powerful, extensible CLI tool that combines the most useful develope
 
 ## 📦 Installation
 
-DevHub CLI is an open-source developer agent that brings the power of multiple development tools directly into your terminal. It provides lightweight access to essential developer utilities, giving you the most direct path from your prompt to productivity.
+### ✅ **Recommended Installation (pipx)**
+
+```bash
+# Install pipx (if not already installed)
+brew install pipx
+
+# Install DevHub CLI globally
+pipx install devhub-tools
+
+# Test installation
+devhub --version
+```
+
+### 🔄 **Alternative Methods**
+
+**Virtual Environment:**
+```bash
+python3 -m venv devhub-env
+source devhub-env/bin/activate
+pip install devhub-tools
+```
+
+**User Installation:**
+```bash
+pip3 install --user devhub-tools
+```
+
+### ⚡ **Quick Start**
+
+```bash
+# Get help
+devhub --help
+
+# Test API endpoints
+devhub api test --url https://httpbin.org/get
+
+# Check available commands
+devhub api --help
+devhub format --help
+```
+
+**Note**: DevHub CLI is published on PyPI as `devhub-tools`. Use `pipx` for the best CLI tool experience!
 
 ## 🎬 Demo
 

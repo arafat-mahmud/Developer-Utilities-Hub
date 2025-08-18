@@ -122,7 +122,9 @@ class Config:
             self.config_file = str(config_path)
 
         except Exception as e:
-            raise ConfigError(f"Failed to load configuration from {config_path}: {e}")
+            raise ConfigError(
+                f"Failed to load configuration from {config_path}: {e}"
+            ) from e
 
     def _update_from_dict(self, data: Dict[str, Any]):
         """Update configuration from dictionary"""
@@ -168,7 +170,9 @@ class Config:
             config_path.write_text(content)
 
         except Exception as e:
-            raise ConfigError(f"Failed to save configuration to {config_path}: {e}")
+            raise ConfigError(
+                f"Failed to save configuration to {config_path}: {e}"
+            ) from e
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert configuration to dictionary"""

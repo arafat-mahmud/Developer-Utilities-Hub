@@ -3,6 +3,7 @@ site_description: The Swiss Army Knife for Developers
 site_url: https://devhub-cli.readthedocs.io/
 repo_url: https://github.com/username/devhub
 repo_name: username/devhub
+site_dir: ../site
 
 theme:
   name: material
@@ -68,15 +69,12 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [src]
+          paths: [../src]
           options:
             docstring_style: google
             show_source: true
             show_root_heading: true
             show_category_heading: true
-  - click:
-      commands:
-        - devhub.cli:cli
 
 markdown_extensions:
   - admonition
@@ -86,8 +84,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - toc:
       permalink: true
   - attr_list

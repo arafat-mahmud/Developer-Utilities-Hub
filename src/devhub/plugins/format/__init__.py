@@ -27,6 +27,14 @@ class FormatPlugin(Plugin):
     version = "1.0.0"
     author = "DevHub Team"
 
+    def initialize(self):
+        """Initialize the format plugin"""
+        pass
+
+    def cleanup(self):
+        """Cleanup plugin resources"""
+        pass
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__(config)
         self.supported_languages = {
@@ -251,7 +259,7 @@ class FormatPlugin(Plugin):
             )
             content = result.stdout
         except subprocess.CalledProcessError as e:
-            raise FormatError(f"Black formatting failed: {e.stderr}")
+            raise FormatError(f"Black formatting failed: {e.stderr}") from e
 
         # Sort imports with isort - write to temp file since isort doesn't support --code
         import tempfile
@@ -278,14 +286,14 @@ class FormatPlugin(Plugin):
                 content = result.stdout
 
         except subprocess.CalledProcessError as e:
-            raise FormatError(f"isort failed: {e.stderr}")
+            raise FormatError(f"isort failed: {e.stderr}") from e
         finally:
             # Clean up temp file
             import os
 
             try:
                 os.unlink(temp_file.name)
-            except:
+            except OSError:
                 pass
 
         return content
@@ -308,7 +316,7 @@ class FormatPlugin(Plugin):
             )
             return result.stdout
         except subprocess.CalledProcessError as e:
-            raise FormatError(f"Prettier formatting failed: {e.stderr}")
+            raise FormatError(f"Prettier formatting failed: {e.stderr}") from e
 
     def _format_typescript(self, content: str, file_path: Path, **kwargs) -> str:
         """Format TypeScript code using prettier"""
@@ -322,7 +330,7 @@ class FormatPlugin(Plugin):
             data = json.loads(content)
             return json.dumps(data, indent=2, ensure_ascii=False) + "\n"
         except json.JSONDecodeError as e:
-            raise FormatError(f"Invalid JSON: {e}")
+            raise FormatError(f"Invalid JSON: {e}") from e
 
     def _format_yaml(self, content: str, file_path: Path, **kwargs) -> str:
         """Format YAML content"""
@@ -332,9 +340,9 @@ class FormatPlugin(Plugin):
             data = yaml.safe_load(content)
             return yaml.dump(data, default_flow_style=False, indent=2)
         except ImportError:
-            raise FormatError("PyYAML not installed")
+            raise FormatError("PyYAML not installed") from None
         except yaml.YAMLError as e:
-            raise FormatError(f"Invalid YAML: {e}")
+            raise FormatError(f"Invalid YAML: {e}") from e
 
     def _format_go(self, content: str, file_path: Path, **kwargs) -> str:
         """Format Go code using gofmt"""
@@ -348,7 +356,7 @@ class FormatPlugin(Plugin):
             )
             return result.stdout
         except subprocess.CalledProcessError as e:
-            raise FormatError(f"gofmt failed: {e.stderr}")
+            raise FormatError(f"gofmt failed: {e.stderr}") from e
 
     def _format_rust(self, content: str, file_path: Path, **kwargs) -> str:
         """Format Rust code using rustfmt"""
@@ -368,7 +376,7 @@ class FormatPlugin(Plugin):
             )
             return result.stdout
         except subprocess.CalledProcessError as e:
-            raise FormatError(f"rustfmt failed: {e.stderr}")
+            raise FormatError(f"rustfmt failed: {e.stderr}") from e
 
     def _show_diff(self, file_path: Path, original: str, formatted: str):
         """Show diff between original and formatted content"""

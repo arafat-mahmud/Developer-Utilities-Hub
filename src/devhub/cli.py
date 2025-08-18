@@ -6,7 +6,6 @@ for beautiful command-line interactions.
 """
 
 import sys
-from pathlib import Path
 from typing import Optional
 
 import click

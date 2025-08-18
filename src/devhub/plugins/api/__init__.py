@@ -30,6 +30,14 @@ class APIPlugin(Plugin):
     version = "1.0.0"
     author = "DevHub Team"
 
+    def initialize(self):
+        """Initialize the API plugin"""
+        pass
+
+    def cleanup(self):
+        """Cleanup plugin resources"""
+        pass
+
     def is_available(self) -> bool:
         """Check if required dependencies are available"""
         try:
@@ -73,7 +81,7 @@ class APIPlugin(Plugin):
 
             except NetworkError as e:
                 console.print(f"[red]Error:[/red] {e}")
-                raise click.Abort()
+                raise click.Abort() from e
 
         @api_group.command(name="benchmark")
         @click.option("--url", "-u", required=True, help="API endpoint URL")
@@ -89,7 +97,7 @@ class APIPlugin(Plugin):
             results = []
             start_time = time.time()
 
-            for i in track(range(requests), description="Making requests..."):
+            for _i in track(range(requests), description="Making requests..."):
                 try:
                     request_start = time.time()
                     response = self.make_request(url, method)
@@ -150,7 +158,7 @@ class APIPlugin(Plugin):
         try:
             import requests
         except ImportError:
-            raise NetworkError("requests library not available")
+            raise NetworkError("requests library not available") from None
 
         # Validate URL
         parsed_url = urlparse(url)
@@ -166,7 +174,7 @@ class APIPlugin(Plugin):
                 request_data = json.loads(json_data)
                 request_headers["Content-Type"] = "application/json"
             except json.JSONDecodeError as e:
-                raise NetworkError(f"Invalid JSON data: {e}")
+                raise NetworkError(f"Invalid JSON data: {e}") from e
         elif data:
             request_data = data
 
@@ -204,11 +212,11 @@ class APIPlugin(Plugin):
             }
 
         except requests.exceptions.Timeout:
-            raise NetworkError(f"Request timeout after {timeout} seconds")
+            raise NetworkError(f"Request timeout after {timeout} seconds") from None
         except requests.exceptions.ConnectionError:
-            raise NetworkError(f"Connection error to {url}")
+            raise NetworkError(f"Connection error to {url}") from None
         except requests.exceptions.RequestException as e:
-            raise NetworkError(f"Request failed: {e}")
+            raise NetworkError(f"Request failed: {e}") from e
 
     def _display_response(self, response: Dict[str, Any], verbose: bool = False):
         """Display API response with beautiful formatting"""

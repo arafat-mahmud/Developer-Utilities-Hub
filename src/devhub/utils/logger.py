@@ -134,7 +134,6 @@ def set_global_log_level(level: Union[str, int]):
 
 def configure_debug_logging():
     """Configure logging for debug mode"""
-    import os
 
     # Create debug log file in temp directory
     debug_log = Path.home() / ".cache" / "devhub" / "debug.log"

@@ -8,7 +8,7 @@ import importlib
 import inspect
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Optional
 
 from devhub.utils.exceptions import PluginError
 from devhub.utils.logger import get_logger
@@ -38,10 +38,12 @@ class Plugin(ABC):
         """Register plugin commands with the CLI"""
         pass
 
+    @abstractmethod
     def initialize(self):
         """Initialize plugin (called after loading)"""
         pass
 
+    @abstractmethod
     def cleanup(self):
         """Cleanup plugin resources"""
         pass
@@ -95,7 +97,7 @@ class PluginManager:
 
             # Find plugin class (should inherit from Plugin)
             plugin_class = None
-            for name, obj in inspect.getmembers(module):
+            for _name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj) and issubclass(obj, Plugin) and obj != Plugin:
                     plugin_class = obj
                     break
@@ -108,7 +110,7 @@ class PluginManager:
 
             # Check if plugin is available
             if not plugin.is_available():
-                raise PluginError(f"Plugin dependencies not available")
+                raise PluginError("Plugin dependencies not available")
 
             # Initialize plugin
             plugin.initialize()
@@ -124,7 +126,7 @@ class PluginManager:
             error_msg = f"Failed to load plugin {plugin_name}: {e}"
             self.failed_plugins[plugin_name] = str(e)
             logger.error(error_msg)
-            raise PluginError(error_msg, plugin_name)
+            raise PluginError(error_msg, plugin_name) from e
 
     def load_plugins(self, plugin_list: Optional[List[str]] = None):
         """Load multiple plugins"""

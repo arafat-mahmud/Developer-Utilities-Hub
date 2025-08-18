@@ -2,6 +2,7 @@
 
 import pytest
 from click.testing import CliRunner
+
 from devhub.cli import cli
 
 

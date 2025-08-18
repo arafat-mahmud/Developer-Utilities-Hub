@@ -4,10 +4,10 @@ Code formatting plugin for DevHub
 This plugin provides code formatting capabilities for multiple programming languages.
 """
 
-import subprocess
 import shutil
+import subprocess
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 import click
 from rich.console import Console

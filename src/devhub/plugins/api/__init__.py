@@ -6,15 +6,15 @@ This plugin provides HTTP API testing capabilities with beautiful output.
 
 import json
 import time
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 from urllib.parse import urlparse
 
 import click
 from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
 from rich.json import JSON
+from rich.panel import Panel
 from rich.progress import track
+from rich.table import Table
 
 from devhub.core.plugin_manager import Plugin
 from devhub.utils.exceptions import NetworkError
@@ -33,8 +33,8 @@ class APIPlugin(Plugin):
     def is_available(self) -> bool:
         """Check if required dependencies are available"""
         try:
-            import requests
             import httpx
+            import requests
 
             return True
         except ImportError:

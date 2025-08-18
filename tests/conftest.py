@@ -1,8 +1,9 @@
 """Test configuration and fixtures for DevHub tests"""
 
-import pytest
 import tempfile
 from pathlib import Path
+
+import pytest
 from click.testing import CliRunner
 
 from devhub.cli import cli

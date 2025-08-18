@@ -5,6 +5,7 @@ This module contains all available plugins for DevHub.
 """
 
 from typing import Any
+
 import click
 
 from devhub.utils.logger import get_logger

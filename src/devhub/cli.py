@@ -11,11 +11,11 @@ from typing import Optional
 
 import click
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
 from rich.text import Text
 
-from devhub import __version__, __description__
+from devhub import __description__, __version__
 from devhub.core.config import Config
 from devhub.core.plugin_manager import PluginManager
 from devhub.utils.exceptions import DevHubError

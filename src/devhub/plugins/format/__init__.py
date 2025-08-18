@@ -7,7 +7,7 @@ This plugin provides code formatting capabilities for multiple programming langu
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 import click
 from rich.console import Console
@@ -161,48 +161,47 @@ class FormatPlugin(Plugin):
 
     def format_file(
         self,
-        file_path: str,
+        file_path: Union[str, Path],
         language: Optional[str] = None,
         check_only: bool = False,
         show_diff: bool = False,
-        line_length: int = 88,
+        line_length: Optional[int] = None,
     ) -> Dict[str, Any]:
         """Format a single file"""
 
-        file_path = Path(file_path)
+        path_obj = Path(file_path)
 
         # Auto-detect language if not specified
         if not language:
-            language = self._detect_language(file_path)
+            language = self._detect_language(path_obj)
 
         if language not in self.supported_languages:
             raise FormatError(f"Unsupported language: {language}")
 
         # Get original content
-        original_content = file_path.read_text()
+        original_content = path_obj.read_text()
 
         # Format content
         formatter = self.supported_languages[language]
         formatted_content = formatter(
-            original_content, file_path, line_length=line_length
+            original_content, path_obj, line_length=line_length
         )
 
         changed = original_content != formatted_content
 
         # Show diff if requested
         if show_diff and changed:
-            self._show_diff(file_path, original_content, formatted_content)
+            self._show_diff(path_obj, original_content, formatted_content)
 
         # Write formatted content if not check-only
         if not check_only and changed:
-            file_path.write_text(formatted_content)
+            path_obj.write_text(formatted_content)
 
         return {
-            "file": str(file_path),
-            "language": language,
+            "formatted": True,
             "changed": changed,
-            "original_lines": len(original_content.splitlines()),
-            "formatted_lines": len(formatted_content.splitlines()),
+            "path": str(path_obj),
+            "language": language,
         }
 
     def _detect_language(self, file_path: Path) -> str:

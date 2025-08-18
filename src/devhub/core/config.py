@@ -51,12 +51,12 @@ class Config:
     format_line_length: int = 88
     format_style: str = "black"
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Initialize configuration after creation"""
         self._load_defaults()
         self._load_from_env()
 
-    def _load_defaults(self):
+    def _load_defaults(self) -> None:
         """Load default plugin configurations"""
         self.plugins_enabled = {
             "format": True,
@@ -67,24 +67,27 @@ class Config:
             "system": True,
         }
 
-    def _load_from_env(self):
+    def _load_from_env(self) -> None:
         """Load configuration from environment variables"""
-        if os.getenv("DEVHUB_VERBOSE"):
-            self.verbose = os.getenv("DEVHUB_VERBOSE").lower() in ("1", "true", "yes")
+        verbose_env = os.getenv("DEVHUB_VERBOSE")
+        if verbose_env:
+            self.verbose = verbose_env.lower() in ("1", "true", "yes")
 
-        if os.getenv("DEVHUB_DEBUG"):
-            self.debug = os.getenv("DEVHUB_DEBUG").lower() in ("1", "true", "yes")
+        debug_env = os.getenv("DEVHUB_DEBUG")
+        if debug_env:
+            self.debug = debug_env.lower() in ("1", "true", "yes")
 
         if os.getenv("DEVHUB_NO_COLOR"):
             self.color = False
 
-        if os.getenv("DEVHUB_API_TIMEOUT"):
+        api_timeout_env = os.getenv("DEVHUB_API_TIMEOUT")
+        if api_timeout_env:
             try:
-                self.api_timeout = int(os.getenv("DEVHUB_API_TIMEOUT"))
+                self.api_timeout = int(api_timeout_env)
             except ValueError:
                 pass
 
-    def load_from_file(self, config_path: Union[str, Path]):
+    def load_from_file(self, config_path: Union[str, Path]) -> None:
         """Load configuration from file
 
         Args:
@@ -126,7 +129,7 @@ class Config:
                 f"Failed to load configuration from {config_path}: {e}"
             ) from e
 
-    def _update_from_dict(self, data: Dict[str, Any]):
+    def _update_from_dict(self, data: Dict[str, Any]) -> None:
         """Update configuration from dictionary"""
         for key, value in data.items():
             if hasattr(self, key):
@@ -143,7 +146,7 @@ class Config:
                                     "enabled"
                                 ]
 
-    def save_to_file(self, config_path: Union[str, Path], format: str = "toml"):
+    def save_to_file(self, config_path: Union[str, Path], format: str = "toml") -> None:
         """Save current configuration to file
 
         Args:
@@ -204,7 +207,7 @@ class Config:
         """Get configuration for a specific plugin"""
         return self.plugin_config.get(plugin_name, {})
 
-    def set_plugin_config(self, plugin_name: str, config: Dict[str, Any]):
+    def set_plugin_config(self, plugin_name: str, config: Dict[str, Any]) -> None:
         """Set configuration for a specific plugin"""
         self.plugin_config[plugin_name] = config
 

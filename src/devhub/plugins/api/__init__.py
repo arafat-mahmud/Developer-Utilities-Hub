@@ -295,7 +295,7 @@ class APIPlugin(Plugin):
 
         # Status code distribution
         if successful_requests:
-            status_codes = {}
+            status_codes: Dict[int, int] = {}
             for result in results:
                 code = result["status_code"]
                 status_codes[code] = status_codes.get(code, 0) + 1

@@ -68,7 +68,7 @@ class PluginManager:
 
     def discover_plugins(self) -> List[str]:
         """Discover available plugins"""
-        plugin_names = []
+        plugin_names: List[str] = []
         plugins_dir = Path(__file__).parent.parent / "plugins"
 
         if not plugins_dir.exists():

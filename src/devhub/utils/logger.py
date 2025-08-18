@@ -111,7 +111,7 @@ def get_logger(name: str) -> logging.Logger:
     return logger
 
 
-def set_global_log_level(level: Union[str, int]):
+def set_global_log_level(level: Union[str, int]) -> None:
     """
     Set log level for all DevHub loggers
 
@@ -132,7 +132,7 @@ def set_global_log_level(level: Union[str, int]):
                 handler.setLevel(level)
 
 
-def configure_debug_logging():
+def configure_debug_logging() -> None:
     """Configure logging for debug mode"""
 
     # Create debug log file in temp directory
@@ -159,7 +159,7 @@ def configure_debug_logging():
             logger.addHandler(debug_handler)
 
 
-def silence_noisy_loggers():
+def silence_noisy_loggers() -> None:
     """Silence overly verbose third-party loggers"""
     noisy_loggers = [
         "urllib3.connectionpool",

@@ -27,12 +27,12 @@ logger = setup_logger(__name__)
 class DevHubCLI:
     """Main CLI class for DevHub"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.config = Config()
         self.plugin_manager = PluginManager()
         self._setup_plugins()
 
-    def _setup_plugins(self):
+    def _setup_plugins(self) -> None:
         """Initialize and load all plugins"""
         try:
             self.plugin_manager.load_plugins()
@@ -66,7 +66,9 @@ class DevHubCLI:
     help="Path to configuration file",
 )
 @click.pass_context
-def cli(ctx: click.Context, version: bool, verbose: bool, config: Optional[str]):
+def cli(
+    ctx: click.Context, version: bool, verbose: bool, config: Optional[str]
+) -> None:
     """🚀 DevHub - The Swiss Army Knife for Developers
 
     A comprehensive CLI toolkit that combines multiple developer utilities
@@ -103,8 +105,8 @@ def cli(ctx: click.Context, version: bool, verbose: bool, config: Optional[str])
         click.echo(ctx.get_help())
 
 
-def show_version():
-    """Display version information with beautiful formatting"""
+def show_version() -> None:
+    """Display version information with rich formatting"""
 
     version_table = Table(show_header=False, box=None, padding=(0, 2))
     version_table.add_row("Version:", f"[bold cyan]{__version__}[/bold cyan]")
@@ -122,8 +124,8 @@ def show_version():
     console.print(panel)
 
 
-def show_welcome():
-    """Display welcome message"""
+def show_welcome() -> None:
+    """Display welcome message and basic usage"""
 
     welcome_text = Text()
     welcome_text.append("🚀 ", style="bold blue")
@@ -139,8 +141,8 @@ def show_welcome():
     )
 
 
-def show_plugin_list():
-    """Display available plugins"""
+def show_plugin_list() -> None:
+    """Show available plugins in a nice table"""
 
     from devhub.core.plugin_manager import PluginManager
 
@@ -166,19 +168,19 @@ def show_plugin_list():
 
 
 @cli.group(name="plugin")
-def plugin_group():
+def plugin_group() -> None:
     """Plugin management commands"""
     pass
 
 
 @plugin_group.command(name="list")
-def list_plugins():
+def list_plugins() -> None:
     """List all available plugins"""
     show_plugin_list()
 
 
-def main():
-    """Main entry point for the CLI"""
+def main() -> None:
+    """Main entry point for the DevHub CLI application"""
     try:
         # Import and register all plugin commands
         from devhub.plugins import register_plugins

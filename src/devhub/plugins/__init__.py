@@ -4,17 +4,22 @@ DevHub Plugins
 This module contains all available plugins for DevHub.
 """
 
+import logging
 from typing import Any
 
 import click
 
-from devhub.utils.logger import get_logger
+from devhub.utils.logger import get_logger, set_global_log_level
 
 logger = get_logger(__name__)
 
 
 def register_plugins(cli_group: click.Group):
     """Register all available plugins with the CLI"""
+
+    # Temporarily disable all but error logs during plugin registration
+    original_level = logger.level
+    set_global_log_level(logging.ERROR)
 
     # Import and register each plugin
     plugins_to_register = ["format", "api"]  # Only load existing plugins
@@ -26,13 +31,20 @@ def register_plugins(cli_group: click.Group):
 
             # Register plugin commands if available
             if hasattr(module, "register_commands"):
-                module.register_commands(cli_group)
-                logger.debug(f"Registered plugin: {plugin_name}")
+                try:
+                    module.register_commands(cli_group)
+                except Exception as e:
+                    # Log the error but don't display it to the user
+                    logger.debug(f"Error registering plugin {plugin_name}: {e}")
+                    continue
 
         except ImportError as e:
-            logger.warning(f"Could not import plugin {plugin_name}: {e}")
+            logger.debug(f"Could not import plugin {plugin_name}: {e}")
         except Exception as e:
-            logger.error(f"Error registering plugin {plugin_name}: {e}")
+            logger.debug(f"Error loading plugin {plugin_name}: {e}")
+
+    # Restore original log level
+    set_global_log_level(original_level)
 
 
 __all__ = ["register_plugins"]

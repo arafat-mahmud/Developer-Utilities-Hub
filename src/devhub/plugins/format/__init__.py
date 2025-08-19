@@ -29,7 +29,9 @@ class FormatPlugin(Plugin):
 
     def initialize(self):
         """Initialize the format plugin"""
-        pass
+        # Check if required dependencies are available
+        if not self.is_available():
+            self.enabled = False
 
     def cleanup(self):
         """Cleanup plugin resources"""
@@ -37,6 +39,7 @@ class FormatPlugin(Plugin):
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__(config)
+        self.enabled = True
         self.supported_languages = {
             "python": self._format_python,
             "javascript": self._format_javascript,
@@ -49,8 +52,15 @@ class FormatPlugin(Plugin):
 
     def is_available(self) -> bool:
         """Check if formatting tools are available"""
-        required_tools = ["black", "isort"]  # Basic Python tools
+        # First, check if Python packages are importable
+        try:
+            import black
+            import isort
+        except ImportError:
+            return False
 
+        # Then check for command-line tools
+        required_tools = ["black", "isort"]  # Basic Python tools
         for tool in required_tools:
             if not shutil.which(tool):
                 return False
@@ -59,6 +69,10 @@ class FormatPlugin(Plugin):
 
     def register_commands(self, cli_group):
         """Register format commands"""
+
+        # Skip registering commands if plugin is disabled due to missing dependencies
+        if not getattr(self, "enabled", True):
+            return
 
         @cli_group.group(name="format")
         def format_group():
@@ -335,13 +349,14 @@ class FormatPlugin(Plugin):
         """Format YAML content"""
         try:
             import yaml
+        except ImportError:
+            raise FormatError("PyYAML not installed") from None
 
+        try:
             data = yaml.safe_load(content)
             result = yaml.dump(data, default_flow_style=False, indent=2)
             # Ensure we always return a string (yaml.dump can return None)
             return result if result is not None else ""
-        except ImportError:
-            raise FormatError("PyYAML not installed") from None
         except yaml.YAMLError as e:
             raise FormatError(f"Invalid YAML: {e}") from e
 
@@ -405,4 +420,9 @@ class FormatPlugin(Plugin):
 def register_commands(cli_group):
     """Register format plugin commands"""
     plugin = FormatPlugin()
+
+    # Check if the plugin can be initialized (has required dependencies)
+    if not plugin.is_available():
+        return  # Skip registering if dependencies are not available
+
     plugin.register_commands(cli_group)

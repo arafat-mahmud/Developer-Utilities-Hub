@@ -35,10 +35,16 @@ class DevHubCLI:
     def _setup_plugins(self) -> None:
         """Initialize and load all plugins"""
         try:
+            # Setting log level to INFO to avoid showing DEBUG messages
+            import logging
+            from devhub.utils.logger import set_global_log_level
+
+            set_global_log_level(logging.INFO)
+
             self.plugin_manager.load_plugins()
             logger.debug(f"Loaded {len(self.plugin_manager.plugins)} plugins")
         except Exception as e:
-            logger.error(f"Failed to load plugins: {e}")
+            logger.debug(f"Failed to load plugins: {e}")  # Changed from error to debug
 
 
 @click.group(
@@ -81,14 +87,26 @@ def cli(
         devhub gen password --length 16
     """
 
+    # For version flag, disable logging first and then initialize
+    if version:
+        # Disable ALL logging for version display
+        import logging
+
+        logging.disable(logging.CRITICAL)
+
+        # Initialize CLI instance without logs
+        if ctx.obj is None:
+            ctx.obj = DevHubCLI()
+
+        show_version()
+
+        # Re-enable logging for other commands
+        logging.disable(logging.NOTSET)
+        return
+
     # Initialize CLI instance
     if ctx.obj is None:
         ctx.obj = DevHubCLI()
-
-    # Handle version flag
-    if version:
-        show_version()
-        return
 
     # Configure logging
     if verbose:
@@ -100,13 +118,18 @@ def cli(
         ctx.obj.config.load_from_file(config)
 
     # Show help if no command provided
-    if ctx.invoked_subcommand is None:
+    if ctx.invoked_subcommand is None and not version:
         show_welcome()
         click.echo(ctx.get_help())
 
 
 def show_version() -> None:
     """Display version information with rich formatting"""
+
+    # Disable ALL logging for version display
+    import logging
+
+    logging.disable(logging.CRITICAL)  # Disable all logging
 
     version_table = Table(show_header=False, box=None, padding=(0, 2))
     version_table.add_row("Version:", f"[bold cyan]{__version__}[/bold cyan]")
@@ -122,6 +145,9 @@ def show_version() -> None:
     )
 
     console.print(panel)
+
+    # Re-enable logging for other commands
+    logging.disable(logging.NOTSET)
 
 
 def show_welcome() -> None:

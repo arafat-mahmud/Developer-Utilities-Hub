@@ -110,7 +110,11 @@ class PluginManager:
 
             # Check if plugin is available
             if not plugin.is_available():
-                raise PluginError("Plugin dependencies not available")
+                # Log at debug level instead of raising error
+                logger.debug(f"Plugin {plugin_name} dependencies not available")
+                # Store in failed plugins but don't raise
+                self.failed_plugins[plugin_name] = "Plugin dependencies not available"
+                return plugin
 
             # Initialize plugin
             plugin.initialize()
@@ -125,7 +129,7 @@ class PluginManager:
         except Exception as e:
             error_msg = f"Failed to load plugin {plugin_name}: {e}"
             self.failed_plugins[plugin_name] = str(e)
-            logger.error(error_msg)
+            logger.debug(error_msg)  # Changed from error to debug
             raise PluginError(error_msg, plugin_name) from e
 
     def load_plugins(self, plugin_list: Optional[List[str]] = None):

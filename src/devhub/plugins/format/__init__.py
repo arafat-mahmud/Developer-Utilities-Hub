@@ -337,7 +337,9 @@ class FormatPlugin(Plugin):
             import yaml
 
             data = yaml.safe_load(content)
-            return yaml.dump(data, default_flow_style=False, indent=2)
+            result = yaml.dump(data, default_flow_style=False, indent=2)
+            # Ensure we always return a string (yaml.dump can return None)
+            return result if result is not None else ""
         except ImportError:
             raise FormatError("PyYAML not installed") from None
         except yaml.YAMLError as e:

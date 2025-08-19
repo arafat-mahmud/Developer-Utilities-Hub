@@ -7,13 +7,6 @@ on:
     branches: [ main ]
   release:
     types: [ published ]
-  workflow_dispatch:  # Added to enable manual triggering of the workflow
-    inputs:
-      publish_to_pypi:
-        description: 'Publish to PyPI?'
-        required: true
-        default: false
-        type: boolean
 
 env:
   PYTHON_VERSION: "3.11"
@@ -281,58 +274,9 @@ jobs:
   publish:
     name: Publish to PyPI
     runs-on: ubuntu-latest
-    # Remove dependencies on other jobs to prevent skipping
-    # needs: [test, lint, build, integration-test]
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_pypi == 'true'
-    permissions:
-      id-token: write  # For trusted publishing
-      contents: read   # Needed to check out the repository
-
-    steps:
-    - name: Debug event info
-      run: |
-        echo "Event name: ${{ github.event_name }}"
-        echo "Is workflow_dispatch: ${{ github.event_name == 'workflow_dispatch' }}"
-        echo "Publish to PyPI input: ${{ github.event.inputs.publish_to_pypi }}"
-        echo "Manual trigger check: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_pypi == 'true' }}"
-    
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-
-    - name: Install build dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
-
-    - name: Build package
-      run: python -m build
-    
-    - name: Check package
-      run: twine check dist/*
-
-    - name: Display package info
-      run: |
-        echo "📦 Publishing package to PyPI"
-        echo "Package contents:"
-        ls -la dist/
-        
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        packages-dir: dist/
-        verbose: true
-        skip-existing: true  # Skip if version already exists on PyPI
-
-  publish-on-release:
-    name: Publish to PyPI on Release
-    runs-on: ubuntu-latest
     needs: [test, lint, build, integration-test]
     if: github.event_name == 'release' && github.event.action == 'published'
+    # environment: release  # Uncomment and replace 'release' with a valid environment name if needed
     permissions:
       id-token: write  # For trusted publishing
 
@@ -343,35 +287,33 @@ jobs:
         name: dist
         path: dist/
 
-    - name: Display package info
-      run: |
-        echo "📦 Publishing release version to PyPI"
-        echo "Release tag: ${{ github.event.release.tag_name }}"
-        echo "Package contents:"
-        ls -la dist/
-        
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: dist/
-        verbose: true
-        skip-existing: true  # Skip if version already exists on PyPI
 
   notify:
-    name: Notify on Completion
+    name: Notify on Success
     runs-on: ubuntu-latest
     needs: [test, lint, security, docs, build]
     if: always() && github.ref == 'refs/heads/main'
     steps:
-    - name: Prepare status message
-      id: message
-      run: |
-        if [[ "${{ needs.test.result }}" == "success" && "${{ needs.lint.result }}" == "success" ]]; then
-          echo "status=✅ DevHub CI/CD pipeline completed successfully!" >> $GITHUB_OUTPUT
-        else
-          echo "status=❌ DevHub CI/CD pipeline failed!" >> $GITHUB_OUTPUT
-        fi
+    - name: Notify Slack on Success
+      if: ${{ needs.test.result == 'success' && needs.lint.result == 'success' }}
+      uses: 8398a7/action-slack@v3
+      continue-on-error: true
+      with:
+        status: success
+        text: "✅ DevHub CI/CD pipeline completed successfully!"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    - name: Log completion
-      run: |
-        echo "${{ steps.message.outputs.status }}"
+    - name: Notify Slack on Failure
+      if: ${{ needs.test.result == 'failure' || needs.lint.result == 'failure' }}
+      uses: 8398a7/action-slack@v3
+      continue-on-error: true
+      with:
+        status: failure
+        text: "❌ DevHub CI/CD pipeline failed!"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

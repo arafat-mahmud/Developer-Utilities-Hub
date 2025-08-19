@@ -295,16 +295,7 @@ We love contributions! DevHub is designed to be easily extensible.
 
 See our [Contributing Guide](CONTRIBUTING.md) for detailed instructions.
 
-### � Publishing to PyPI
-
-DevHub can be published to PyPI in two ways:
-
-1. **Automatic publishing** when a new GitHub Release is created
-2. **Manual publishing** via the GitHub Actions workflow
-
-For detailed instructions on manual publishing, see the [Manual Publishing Guide](MANUAL_PUBLISHING_GUIDE.md).
-
-### �🐛 Found a Bug?
+### 🐛 Found a Bug?
 
 Please open an issue with:
 - DevHub version (`devhub --version`)

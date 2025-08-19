@@ -74,6 +74,17 @@ If the publishing workflow doesn't start:
 2. Make sure your GitHub account has permissions to trigger workflows
 3. Check if the repository has any workflow restrictions in place
 
+#### Version Already Exists Error
+
+If you get an error about the version already existing on PyPI:
+
+1. Check the current version on PyPI: https://pypi.org/project/devhub-tools/
+2. Update the version in `pyproject.toml` and `src/devhub/__init__.py` to a new version
+3. Commit and push the version changes
+4. Try the publishing workflow again
+
+**Note**: The workflow uses `skip-existing: true` so it will silently skip publishing if the version already exists.
+
 #### Version Bumping Failing
 
 If automatic version bumping fails:

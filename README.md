@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![DevHub Logo](https://res.cloudinary.com/draqhisid/image/upload/v1755613530/a8frbisyatyepxhuijm4.png)
+![DevHub Logo](https://res.cloudinary.com/draqhisid/image/upload/v1755615817/w1ktqiz0kztryyrgqrdw.png)
 
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*

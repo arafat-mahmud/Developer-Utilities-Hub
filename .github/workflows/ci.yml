@@ -7,6 +7,13 @@ on:
     branches: [ main ]
   release:
     types: [ published ]
+  workflow_dispatch:  # Added to enable manual triggering of the workflow
+    inputs:
+      publish_to_pypi:
+        description: 'Publish to PyPI?'
+        required: true
+        default: false
+        type: boolean
 
 env:
   PYTHON_VERSION: "3.11"
@@ -275,8 +282,9 @@ jobs:
     name: Publish to PyPI
     runs-on: ubuntu-latest
     needs: [test, lint, build, integration-test]
-    if: github.event_name == 'release' && github.event.action == 'published'
-    # environment: release  # Uncomment and replace 'release' with a valid environment name if needed
+    # Modified condition to enable either release or manual trigger with workflow_dispatch
+    if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_pypi == 'true')
+    # PyPI publishing configuration
     permissions:
       id-token: write  # For trusted publishing
 
@@ -287,33 +295,34 @@ jobs:
         name: dist
         path: dist/
 
+    - name: Display package info
+      run: |
+        echo "📦 Publishing package to PyPI"
+        echo "Package contents:"
+        ls -la dist/
+        
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: dist/
+        verbose: true
+        skip-existing: true  # Skip if version already exists on PyPI
 
   notify:
-    name: Notify on Success
+    name: Notify on Completion
     runs-on: ubuntu-latest
     needs: [test, lint, security, docs, build]
     if: always() && github.ref == 'refs/heads/main'
     steps:
-    - name: Notify Slack on Success
-      if: ${{ needs.test.result == 'success' && needs.lint.result == 'success' }}
-      uses: 8398a7/action-slack@v3
-      continue-on-error: true
-      with:
-        status: success
-        text: "✅ DevHub CI/CD pipeline completed successfully!"
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    - name: Prepare status message
+      id: message
+      run: |
+        if [[ "${{ needs.test.result }}" == "success" && "${{ needs.lint.result }}" == "success" ]]; then
+          echo "status=✅ DevHub CI/CD pipeline completed successfully!" >> $GITHUB_OUTPUT
+        else
+          echo "status=❌ DevHub CI/CD pipeline failed!" >> $GITHUB_OUTPUT
+        fi
 
-    - name: Notify Slack on Failure
-      if: ${{ needs.test.result == 'failure' || needs.lint.result == 'failure' }}
-      uses: 8398a7/action-slack@v3
-      continue-on-error: true
-      with:
-        status: failure
-        text: "❌ DevHub CI/CD pipeline failed!"
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    - name: Log completion
+      run: |
+        echo "${{ steps.message.outputs.status }}"

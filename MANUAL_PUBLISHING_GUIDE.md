@@ -2,6 +2,16 @@
 
 This guide explains how to publish DevHub to PyPI using the GitHub Actions workflow.
 
+## Initial Setup
+
+Before you can publish to PyPI, ensure the following prerequisites are met:
+
+1. **PyPI Project**: Create a project on PyPI with the name `devhub-cli`
+2. **Trusted Publishing**: Configure trusted publishing on PyPI for your GitHub repository
+   - Go to your PyPI project settings
+   - Add a new "Publishing API token" with GitHub Actions as the publisher
+   - Configure the token for your GitHub repository
+
 ## Automatic Publishing on Release
 
 The DevHub package is automatically published to PyPI when a new GitHub Release is created. This is the recommended method for publishing new versions.
@@ -37,11 +47,30 @@ In some cases, you may need to manually trigger the publishing process. DevHub s
 
 If you encounter issues with the publishing process:
 
-1. Check that the version in `pyproject.toml` is unique
+1. Check that the version in `pyproject.toml` is unique and not already published on PyPI
 2. Verify you have the required permissions on GitHub
 3. Check the workflow run logs for detailed error messages
 4. Ensure the package builds successfully locally with `python -m build`
 5. Verify the package can be installed from the local wheel with `pip install dist/*.whl`
+
+### Common Issues and Solutions
+
+#### Publishing Job Being Skipped
+
+If the publishing job is being skipped when you trigger the workflow manually:
+
+1. Make sure you set the "Publish to PyPI?" option to `true` when running the workflow
+2. Check the workflow run logs for the debug information in the publish job
+3. Verify that all required jobs (test, lint, build, integration-test) completed successfully
+4. If needed, edit `.github/workflows/ci.yml` and add `always()` to the job condition for testing
+
+#### PyPI Authentication Errors
+
+If you encounter authentication errors with PyPI:
+
+1. Ensure your GitHub repository has the correct PyPI publishing configuration
+2. Verify that trusted publishing is configured correctly in your PyPI account
+3. Check that the GitHub Action has the required permissions (`id-token: write`)
 
 ## PyPI Project Information
 

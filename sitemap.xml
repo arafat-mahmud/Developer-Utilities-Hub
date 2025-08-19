@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/</loc>
+         <loc>https://devhub-cli.readthedocs.io/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/changelog/</loc>
+         <loc>https://devhub-cli.readthedocs.io/changelog/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/configuration/</loc>
+         <loc>https://devhub-cli.readthedocs.io/configuration/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/contributing/</loc>
+         <loc>https://devhub-cli.readthedocs.io/contributing/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/development/</loc>
+         <loc>https://devhub-cli.readthedocs.io/development/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/installation/</loc>
+         <loc>https://devhub-cli.readthedocs.io/installation/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/quick-start/</loc>
+         <loc>https://devhub-cli.readthedocs.io/quick-start/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/testing/</loc>
+         <loc>https://devhub-cli.readthedocs.io/testing/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/plugins/api/</loc>
+         <loc>https://devhub-cli.readthedocs.io/plugins/api/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/plugins/architecture/</loc>
+         <loc>https://devhub-cli.readthedocs.io/plugins/architecture/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/plugins/creating/</loc>
+         <loc>https://devhub-cli.readthedocs.io/plugins/creating/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/plugins/examples/</loc>
+         <loc>https://devhub-cli.readthedocs.io/plugins/examples/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/reference/api/</loc>
+         <loc>https://devhub-cli.readthedocs.io/reference/api/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/reference/cli/</loc>
+         <loc>https://devhub-cli.readthedocs.io/reference/cli/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/reference/config/</loc>
+         <loc>https://devhub-cli.readthedocs.io/reference/config/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/api/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/api/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/data/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/data/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/formatting/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/formatting/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/git/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/git/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/security/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/security/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
     <url>
-         <loc>https://arafat-mahmud.github.io/Developer-Utilities-Hub/user-guide/system/</loc>
+         <loc>https://devhub-cli.readthedocs.io/user-guide/system/</loc>
          <lastmod>2025-08-19</lastmod>
     </url>
 </urlset>

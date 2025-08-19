@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "devhub-tools"
-version = "1.0.0"
+version = "1.0.1"
 description = "The Swiss Army Knife for Developers - A comprehensive CLI toolkit"
 authors = [
     {name = "DevHub Team", email = "hello@devhub.dev"}

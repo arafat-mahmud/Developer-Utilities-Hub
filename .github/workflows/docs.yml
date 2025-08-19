@@ -13,16 +13,8 @@ env:
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy Documentation
+    name: Build Documentation
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -53,17 +45,15 @@ jobs:
         cd docs
         mkdocs build --strict --verbose
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+    - name: Upload docs artifact
+      uses: actions/upload-artifact@v4
       with:
-        path: docs/site
+        name: documentation
+        path: docs/site/
+        retention-days: 7
 
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+  # We'll use the deploy-docs.yml workflow for actual deployment
+  # since it uses the git-based approach which doesn't require Pages to be configured
 
   notify:
     name: Notify on Status
@@ -74,12 +64,12 @@ jobs:
     - name: Notify on Success
       if: needs.build-and-deploy.result == 'success'
       run: |
-        echo "✅ Documentation deployed successfully!"
-        echo "📖 Visit: https://arafat-mahmud.github.io/Developer-Utilities-Hub/"
+        echo "✅ Documentation built successfully!"
+        echo "📖 Use deploy-docs.yml workflow for deployment to GitHub Pages"
 
     - name: Notify on Failure
       if: needs.build-and-deploy.result == 'failure'
       run: |
-        echo "❌ Documentation deployment failed!"
+        echo "❌ Documentation build failed!"
         echo "Check the logs above for details."
         # Not using exit 1 to avoid workflow error annotation

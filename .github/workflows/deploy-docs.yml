@@ -1,4 +1,4 @@
-name: Deploy Documentation
+name: Deploy Documentation to GitHub Pages
 
 on:
   push:
@@ -41,4 +41,15 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd docs
-        mkdocs gh-deploy --force --clean
+        mkdocs gh-deploy --force --clean --verbose
+        
+    - name: Check deployment status
+      run: |
+        echo "✅ Documentation deployment completed"
+        echo "📄 If this is the first deployment, you need to:"
+        echo "   1. Go to repository Settings → Pages"
+        echo "   2. Set Source to 'Deploy from a branch'"
+        echo "   3. Select branch 'gh-pages' and folder '/ (root)'"
+        echo "   4. Click Save"
+        echo "📚 Once configured, your docs will be available at:"
+        echo "   https://arafat-mahmud.github.io/Developer-Utilities-Hub/"

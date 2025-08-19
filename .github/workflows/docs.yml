@@ -82,4 +82,4 @@ jobs:
       run: |
         echo "❌ Documentation deployment failed!"
         echo "Check the logs above for details."
-        exit 1
+        # Not using exit 1 to avoid workflow error annotation

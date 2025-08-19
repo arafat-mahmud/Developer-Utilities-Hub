@@ -7,7 +7,16 @@
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*
 
-[![PyPI version](https://badge.fury.io/py/devhub-tools.svg)](https://badge.fury.io/py/devhub-tools)
+[![PyPI version](https://badge.fury.io/py/devhub-tools.svg)](https://badge.f### 📦 Publishing to PyPI
+
+DevHub can be published to PyPI in two ways:
+
+1. **Automatic publishing** when a new GitHub Release is created
+2. **Manual publishing** using our dedicated PyPI publishing workflow
+
+The dedicated workflow supports automatic version bumping (patch, minor, major) and handles all build and publishing steps in one process.
+
+For detailed instructions on publishing, see the [Manual Publishing Guide](MANUAL_PUBLISHING_GUIDE.md).y/devhub-tools)
 [![Downloads](https://pepy.tech/badge/devhub-tools)](https://pepy.tech/project/devhub-tools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)

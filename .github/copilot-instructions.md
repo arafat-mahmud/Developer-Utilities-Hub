@@ -302,8 +302,8 @@ Special thanks to:
 
 <div align="center">
 
-**⭐ Star us on GitHub • 🐦 Follow on Twitter • 📖 Read the Docs**
+**⭐ Star us on GitHub • 🐦 Follow on Linkedin • 📖 Read the Docs**
 
-Made with ❤️ by developers, for developers
+Made with ❤️ by Arafat Mahmud, for developers
 
 </div>

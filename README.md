@@ -1,9 +1,8 @@
-````markdown
 # 🚀 DevHub - Developer Utilities Hub
 
 <div align="center">
 
-![DevHub Logo](https://via.placeholder.com/400x120/1e1e2e/cdd6f4?text=DevHub%20CLI)
+![DevHub Logo](https://res.cloudinary.com/draqhisid/image/upload/v1755613530/a8frbisyatyepxhuijm4.png)
 
 **The Swiss Army Knife for Developers**  
 *One CLI tool to rule them all*
@@ -678,4 +677,3 @@ When reporting issues, please include:
 
 </div>
 
-````

@@ -1,8 +1,8 @@
 site_name: DevHub Documentation
 site_description: The Swiss Army Knife for Developers
-site_url: https://arafat-mahmud.github.io/Developer-Utilities-Hub/
-repo_url: https://github.com/arafat-mahmud/Developer-Utilities-Hub
-repo_name: arafat-mahmud/Developer-Utilities-Hub
+site_url: https://devhub-cli.readthedocs.io/
+repo_url: https://github.com/username/devhub
+repo_name: username/devhub
 site_dir: ../site
 
 theme:
@@ -91,7 +91,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/arafat-mahmud/Developer-Utilities-Hub
+      link: https://github.com/username/devhub
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/devhub_cli
     - icon: fontawesome/brands/discord

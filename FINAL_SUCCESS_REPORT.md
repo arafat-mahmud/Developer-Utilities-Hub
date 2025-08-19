@@ -114,7 +114,7 @@ To publish new versions:
 - AWS CLI
 - GitHub CLI
 - Terraform CLI
-- Gemini CLI (your inspiration!)
+- Popular CLI tools (our inspiration!)
 
 **Your DevHub CLI is now a professional, globally-available developer tool used by developers worldwide!**
 

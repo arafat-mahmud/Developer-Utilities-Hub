@@ -2,7 +2,7 @@
 
 ## ✅ Ready to Publish to PyPI!
 
-Your DevHub CLI is now **completely ready** to be published to PyPI. Users will be able to install it globally with `pip install devhub-cli` just like Gemini CLI!
+Your DevHub CLI is now **completely ready** to be published to PyPI. Users will be able to install it globally with `pip install devhub-tools`!
 
 ## 🚀 One-Click Publishing
 
@@ -67,7 +67,7 @@ devhub api test --url https://httpbin.org/get
 - **Documentation links**: Direct from PyPI
 
 ### ✅ User Experience
-Just like Gemini CLI, users can:
+Just like other professional CLI tools, users can:
 ```bash
 # Install globally
 pip install devhub-cli
@@ -141,4 +141,4 @@ pip install devhub-cli
 devhub --help
 ```
 
-**Your CLI will join the ranks of professional tools like Gemini CLI! 🚀**
+**Your CLI will join the ranks of professional developer tools! 🚀**

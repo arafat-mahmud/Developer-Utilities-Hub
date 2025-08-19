@@ -12,54 +12,6 @@ echo "This will publish DevHub to PyPI so users can install with:"
 echo "pip install devhub-cli"
 echo ""
 
-# Parse arguments
-BUMP_VERSION=""
-PUBLISH=true
-HELP=false
-
-while [[ $# -gt 0 ]]; do
-    key="$1"
-    case $key in
-        --bump)
-            BUMP_VERSION="$2"
-            if [[ ! "$BUMP_VERSION" =~ ^(patch|minor|major)$ ]]; then
-                echo "Error: Version bump must be 'patch', 'minor', or 'major'"
-                exit 1
-            fi
-            shift 2
-            ;;
-        --local)
-            PUBLISH=false
-            shift
-            ;;
-        --help)
-            HELP=true
-            shift
-            ;;
-        *)
-            echo "Unknown option: $1"
-            HELP=true
-            shift
-            ;;
-    esac
-done
-
-# Show help
-if [[ "$HELP" == "true" ]]; then
-    echo "Usage: $0 [options]"
-    echo ""
-    echo "Options:"
-    echo "  --bump TYPE    Bump version (patch, minor, major)"
-    echo "  --local        Build package locally (no publishing)"
-    echo "  --help         Show this help message"
-    echo ""
-    echo "Examples:"
-    echo "  $0                         # Build and publish without bumping version"
-    echo "  $0 --bump patch            # Bump patch version and publish"
-    echo "  $0 --bump minor --local    # Bump minor version without publishing"
-    exit 0
-fi
-
 # Check if we're in a virtual environment
 if [[ "$VIRTUAL_ENV" == "" ]]; then
     echo "❌ Error: Please activate the virtual environment first:"
@@ -71,14 +23,7 @@ fi
 
 # Check if build tools are installed
 echo "📦 Installing/upgrading build tools..."
-pip install --upgrade build twine setuptools wheel bump2version
-
-# Handle version bump
-if [[ ! -z "$BUMP_VERSION" ]]; then
-    echo "📈 Bumping $BUMP_VERSION version..."
-    bump2version "$BUMP_VERSION"
-    echo "✅ Version bumped and changes committed"
-fi
+pip install --upgrade build twine setuptools wheel
 
 echo ""
 echo "🧹 Cleaning previous builds..."

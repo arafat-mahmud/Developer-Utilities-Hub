@@ -6,10 +6,10 @@ useful utilities into one powerful command-line interface.
 
 Author: DevHub Team
 License: MIT
-Version: 1.0.1
+Version: 1.0.0
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.0"
 __author__ = "DevHub Team"
 __email__ = "hello@devhub.dev"
 __license__ = "MIT"

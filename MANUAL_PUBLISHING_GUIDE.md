@@ -1,6 +1,6 @@
 # DevHub Manual Publishing Guide
 
-This guide explains how to publish DevHub to PyPI using the dedicated GitHub Actions workflow.
+This guide explains how to publish DevHub to PyPI using the GitHub Actions workflow.
 
 ## Initial Setup
 
@@ -20,39 +20,30 @@ The DevHub package is automatically published to PyPI when a new GitHub Release 
 2. Create a new GitHub Release with a tag that matches the version (e.g., `v0.1.0`)
 3. Add release notes describing the changes
 4. Publish the release
-5. The publishing workflow will automatically build and publish the package to PyPI
+5. The CI/CD pipeline will automatically build and publish the package to PyPI
 
-## Manual Publishing via Dedicated Workflow
+## Manual Publishing via Workflow Dispatch
 
-DevHub now has a dedicated workflow for publishing to PyPI, making it more reliable and independent of other CI processes.
+In some cases, you may need to manually trigger the publishing process. DevHub supports this through the GitHub Actions workflow dispatch feature.
 
 ### Steps to Publish Manually
 
 1. Go to the GitHub repository Actions tab
-2. Select the "**Publish to PyPI**" workflow (not the CI/CD Pipeline)
+2. Select the "CI/CD Pipeline" workflow
 3. Click the "Run workflow" dropdown button
 4. Choose the branch you want to run from (typically `main`)
-5. Select a version bump type (patch, minor, major, or none)
+5. Set "Publish to PyPI?" to `true`
 6. Click "Run workflow"
 
-![Manual publishing screenshot](docs/docs/assets/images/manual-publishing.png)
-
-### Version Bumping
-
-The publishing workflow includes automatic version bumping:
-
-- **patch**: Increments the patch version (1.0.0 → 1.0.1)
-- **minor**: Increments the minor version (1.0.0 → 1.1.0)
-- **major**: Increments the major version (1.0.0 → 2.0.0)
-- **none**: Uses the current version without bumping
+The publishing job will run independently from other jobs, building and publishing the package directly without waiting for tests to complete. This is useful for quick publishing after you've already verified everything works.
 
 ![Manual publishing screenshot](docs/docs/assets/images/manual-publishing.png)
 
 ### Important Notes
 
-- When using version bumping, the workflow will commit the version change and push it to the repository
+- The version in `pyproject.toml` must be unique and not already published on PyPI
+- Manual publishing requires appropriate permissions on the GitHub repository
 - The workflow will skip publishing if the version already exists on PyPI
-- The dedicated workflow runs independently from the main CI/CD pipeline
 
 ## Troubleshooting
 
@@ -66,39 +57,21 @@ If you encounter issues with the publishing process:
 
 ### Common Issues and Solutions
 
-#### Publishing Workflow Not Running
+#### Publishing Job Being Skipped
 
-If the publishing workflow doesn't start:
+If the publishing job is being skipped when you trigger the workflow manually:
 
-1. Verify you have selected the correct workflow ("Publish to PyPI" not "CI/CD Pipeline")
-2. Make sure your GitHub account has permissions to trigger workflows
-3. Check if the repository has any workflow restrictions in place
-
-#### Version Already Exists Error
-
-If you get an error about the version already existing on PyPI:
-
-1. Check the current version on PyPI: https://pypi.org/project/devhub-tools/
-2. Update the version in `pyproject.toml` and `src/devhub/__init__.py` to a new version
-3. Commit and push the version changes
-4. Try the publishing workflow again
-
-**Note**: The workflow uses `skip-existing: true` so it will silently skip publishing if the version already exists.
-
-#### Version Bumping Failing
-
-If automatic version bumping fails:
-
-1. Ensure the repository has a proper `.bumpversion.cfg` file
-2. Check that your GitHub token has `contents: write` permission
-3. Try using the "none" option and manually update the version first
+1. Make sure you set the "Publish to PyPI?" option to `true` when running the workflow
+2. Check the workflow run logs for the debug information in the publish job
+3. Verify that you're using the latest workflow file version
+4. Remember that the manual publish job now runs independently of other jobs
 
 #### PyPI Authentication Errors
 
 If you encounter authentication errors with PyPI:
 
-1. Ensure your GitHub repository has the correct PyPI trusted publishing configuration
-2. Verify that your PyPI project is correctly set up for trusted publishing
+1. Ensure your GitHub repository has the correct PyPI publishing configuration
+2. Verify that trusted publishing is configured correctly in your PyPI account
 3. Check that the GitHub Action has the required permissions (`id-token: write`)
 
 ## PyPI Project Information

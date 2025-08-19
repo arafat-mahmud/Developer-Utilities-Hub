@@ -669,9 +669,9 @@ When reporting issues, please include:
 
 <div align="center">
 
-### ⭐ **Star us on GitHub** • 🐦 **Follow on Twitter** • 📖 **Read the Docs**
+### ⭐ **Star us on GitHub** • 🐦 **Follow on LinkedIn** • 📖 **Read the Docs**
 
-**Made with ❤️ by developers, for developers**
+**Made with ❤️ by Arafat Mahmud, for developers**
 
 [⬆️ Back to Top](#-devhub---developer-utilities-hub)
 

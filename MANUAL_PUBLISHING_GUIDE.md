@@ -35,6 +35,8 @@ In some cases, you may need to manually trigger the publishing process. DevHub s
 5. Set "Publish to PyPI?" to `true`
 6. Click "Run workflow"
 
+The publishing job will run independently from other jobs, building and publishing the package directly without waiting for tests to complete. This is useful for quick publishing after you've already verified everything works.
+
 ![Manual publishing screenshot](docs/docs/assets/images/manual-publishing.png)
 
 ### Important Notes
@@ -61,8 +63,8 @@ If the publishing job is being skipped when you trigger the workflow manually:
 
 1. Make sure you set the "Publish to PyPI?" option to `true` when running the workflow
 2. Check the workflow run logs for the debug information in the publish job
-3. Verify that all required jobs (test, lint, build, integration-test) completed successfully
-4. If needed, edit `.github/workflows/ci.yml` and add `always()` to the job condition for testing
+3. Verify that you're using the latest workflow file version
+4. Remember that the manual publish job now runs independently of other jobs
 
 #### PyPI Authentication Errors
 
